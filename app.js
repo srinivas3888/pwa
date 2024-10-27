@@ -1,6 +1,6 @@
 // import { addData, getAllData } from './indexeddb';
 
-// Register Service Worker
+// Register Service Worker 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js')
         .then(registration => {
