@@ -20,7 +20,7 @@ document.getElementById('saveButton').addEventListener('click', () => {
         data="Default txt";
     }
     let d = {
-        id: Date.now(),
+        id_time: Date.now(),
         content: data
     };
     // let data = prompt("Enter data: ", "Default txt");
@@ -69,7 +69,7 @@ document.getElementById('deleteButton').addEventListener('click', async() => {
         let id=d;
         for(let i=0; i<data.length; i++){
             if(data[i].content===d){
-                id=i;
+                id=data[i].id;
                 break;
             }
         }
