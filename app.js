@@ -67,12 +67,12 @@ document.getElementById('deleteButton').addEventListener('click', async() => {
         let d = inp.value;
         inp.value="";
         let id=d;
-        for(let i=0; i<data.length; i++){
-            if(data[i].content===d){
-                id=data[i].id;
-                break;
-            }
-        }
+        // for(let i=0; i<data.length; i++){
+        //     if(data[i].content===d){
+        //         id=data[i].id;
+        //         break;
+        //     }
+        // }
         console.log({
             id,
             data
