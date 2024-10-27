@@ -65,11 +65,11 @@ function deleteData(id) {
             const request = store.delete(id);
 
             request.onsuccess = (event)=>{
-                resolve(event.target.result);
+                resolve(`Deleted id: ${id}`);
             };
 
             request.onerror = (event)=>{
-                reject(event.target.errorCode);
+                reject("Error while Deleting: "+event.target.errorCode);
             };
         });
     });
