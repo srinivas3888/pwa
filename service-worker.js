@@ -8,12 +8,19 @@ const URLS_TO_CACHE = [
     './fav.png'
 ];
 
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
+    if('caches' in window) {
+        caches.keys().then((cacheNames) => {
+            cacheNames.forEach((cacheName) => {
+                caches.delete(cacheName);
+        });
+    });
+    }
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => {
-                return cache.addAll(URLS_TO_CACHE);
-            })
+    caches.open(CACHE_NAME)
+        .then(cache => {
+            return cache.addAll(URLS_TO_CACHE);
+        })
     );
     self.skipWaiting();
 });
