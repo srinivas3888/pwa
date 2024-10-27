@@ -46,7 +46,6 @@ document.getElementById('loadButton').addEventListener('click', async() => {
 
     const displayElement = document.getElementById('dataDisplay');
     if (data) {
-        displayElement.innerHTML += "Retrieved Data: "+"<br>";
         data.map(d=>{ displayElement.innerHTML += d.content+"<br>" });
     } else {
         displayElement.textContent = 'No data found. Please save some data first.';
