@@ -3,7 +3,7 @@ const URLS_TO_CACHE = [
     '/',
     '/index.html',
     '/style.css',
-    '/app.js',
+    '/script.js',
     '/indexeddb.js',
     './fav.png'
 ];
