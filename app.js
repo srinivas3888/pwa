@@ -73,6 +73,7 @@ document.getElementById('deleteButton').addEventListener('click', async() => {
                 break;
             }
         }
+        console.log(id);
         deleteData(id)
             .then((t)=>{alert(t)})
             .catch((t)=>{alert(t)});
