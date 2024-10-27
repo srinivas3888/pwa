@@ -66,22 +66,20 @@ document.getElementById('deleteButton').addEventListener('click', async() => {
         const inp = document.getElementById('inp');
         let d = inp.value;
         inp.value="";
-        let id=d;
+        let id;
         for(let i=0; i<data.length; i++){
             if(data[i].content===d){
                 id=data[i].id;
                 break;
             }
         }
-        console.log({
-            id,
-            data
-        });
+        // console.log({
+        //     id,
+        //     data
+        // });
         deleteData(id)
             .then((t)=>{alert(t)})
-            .catch((t)=>{alert(t);
-                console.log(t);
-            });
+            .catch((t)=>{alert(t)});
     } else {
         alert('No data found to delete. Please save some data first.');
     }
