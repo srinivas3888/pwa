@@ -2,6 +2,12 @@
 
 // Register Service Worker
 if ('serviceWorker' in navigator) {
+    // Uregister old service workers before installing our pwa
+  // navigator.serviceWorker.getRegistrations().then((registrations) => {
+  //   registrations.forEach((registration) => {
+  //     registration.unregister();
+  //   });
+  // });
     navigator.serviceWorker.register('service-worker.js')
         .then(registration => {
             console.log('Service Worker registered with scope:', registration.scope);
