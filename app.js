@@ -79,7 +79,9 @@ document.getElementById('deleteButton').addEventListener('click', async() => {
         });
         deleteData(id)
             .then((t)=>{alert(t)})
-            .catch((t)=>{alert(t)});
+            .catch((t)=>{alert(t)
+                        console.log(t);
+                        });
     } else {
         alert('No data found to delete. Please save some data first.');
     }
