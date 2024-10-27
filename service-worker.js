@@ -1,10 +1,10 @@
 const CACHE_NAME = 'simple-pwa-v1';
 const URLS_TO_CACHE = [
     '/',
-    '/index.html',
-    '/style.css',
-    '/script.js',
-    '/indexeddb.js',
+    './index.html',
+    './style.css',
+    './script.js',
+    './indexeddb.js',
     './fav.png'
 ];
 
@@ -40,7 +40,7 @@ self.addEventListener('fetch', event => {
                 return response || fetch(event.request);
             })
             .catch(() => {
-                return caches.match('/index.html');
+                return caches.match('./index.html');
             })
     );
 });
