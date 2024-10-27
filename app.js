@@ -69,11 +69,14 @@ document.getElementById('deleteButton').addEventListener('click', async() => {
         let id=d;
         for(let i=0; i<data.length; i++){
             if(data[i].content===d){
-                id=data[i].id;
+                id=i;
                 break;
             }
         }
-        console.log(id);
+        console.log({
+            id,
+            data
+        });
         deleteData(id)
             .then((t)=>{alert(t)})
             .catch((t)=>{alert(t)});
