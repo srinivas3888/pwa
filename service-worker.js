@@ -1,10 +1,10 @@
 const CACHE_NAME = 'simple-pwa-v1';
 const URLS_TO_CACHE = [
     '/',
-    './index.html',
-    './style.css',
-    './script.js',
-    './indexeddb.js',
+    '/index.html',
+    '/style.css',
+    '/script.js',
+    '/indexeddb.js',
     './fav.png'
 ];
 
@@ -33,14 +33,36 @@ self.addEventListener('activate', event => {
     self.clients.claim();
 });
 
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                return response || fetch(event.request);
-            })
-            .catch(() => {
-                return caches.match('./index.html');
-            })
+self.addEventListener('push', (event)=>{
+    const options = {
+        body: event.data ? event.data.text() : 'New Notification',
+        icon: './fav.png', // Replace with your icon file path if available
+        badge: './fav.png' // Replace with your badge file path if available
+    };
+
+    event.waitUntil(
+        self.registration.showNotification('Push Notification', options)
     );
 });
+
+self.addEventListener('notificationclick', (event)=>{
+    event.notification.close();
+    event.waitUntil(
+        clients.openWindow('https://srinivas3888.github.io/pwa/') // Replace with your desired URL
+    );
+});
+
+
+
+//Intercepting Network Requests...
+// self.addEventListener('fetch', event => {
+//     event.respondWith(
+//         caches.match(event.request)
+//             .then(response => {
+//                 return response || fetch(event.request);
+//             })
+//             .catch(() => {
+//                 return caches.match('./index.html');
+//             })
+//     );
+// });
