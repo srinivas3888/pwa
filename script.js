@@ -102,6 +102,49 @@ async function subscribeToNotifications() {
     console.log('User is subscribed to notifications.');
 }
 
+async function sendNotifications() {
+    const r = await fetch('/send-notification', {
+        method: 'POST',
+        body: JSON.stringify({}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    console.log(r);
+}
+
+function askNotificationPermission() {
+    // Check if the browser supports notifications
+    if (!('Notification' in window)) {
+        console.log('This browser does not support notifications.');
+        return;
+    }
+
+    // Check the current permission status
+    if (Notification.permission === 'granted') {
+        console.log('User has already granted permission.');
+        return;
+    }
+
+    if (Notification.permission === 'denied') {
+        console.log('User has denied notifications.');
+        return;
+    }
+
+    // Request permission from the user
+    Notification.requestPermission().then(async(permission) => {
+        if (permission === 'granted') {
+            console.log('User granted permission for notifications.');
+            // You can also subscribe the user to push notifications here
+            await subscribeToNotifications();
+        } else {
+            console.log('User denied permission for notifications.');
+        }
+    }).catch(error => {
+        console.error('Error occurred while requesting permission:', error);
+    });
+}
+
 
 
 
