@@ -91,7 +91,7 @@ async function subscribeToNotifications() {
         applicationServerKey: 'BGSiY1tj28LV9bh8jGsvhX_-CUAGuhUqBkxf85ycG9VHmxPg_9nG9amcS7enT9rSnRFYERboAoLEhPZ3JNsn5mc' // Replace with your VAPID public key
     });
 
-    await fetch('/subscribe', {
+    await fetch('https://pushnotifications-ofer.onrender.com/subscribe', {
         method: 'POST',
         body: JSON.stringify(subscription),
         headers: {
@@ -103,8 +103,9 @@ async function subscribeToNotifications() {
 }
 
 async function sendNotifications() {
-    const r = await fetch('/send-notification', {
-        method: 'GET',
+    const r = await fetch('https://pushnotifications-ofer.onrender.com/send-notification', {
+        method: 'POST',
+        body: JSON.stringify({}),
         headers: {
             'Content-Type': 'application/json'
         }
