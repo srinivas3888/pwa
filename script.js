@@ -104,8 +104,7 @@ async function subscribeToNotifications() {
 
 async function sendNotifications() {
     const r = await fetch('/send-notification', {
-        method: 'POST',
-        body: JSON.stringify({}),
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
