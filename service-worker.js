@@ -1,18 +1,24 @@
 const CACHE_NAME = 'simple-pwa-v1';
 const URLS_TO_CACHE = [
-    '/',
+    '/pwa',
     '/index.html',
     '/style.css',
     '/script.js',
     '/indexeddb.js',
-    './fav.png'
+    '/fav.png'
 ];
 
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                return cache.addAll(URLS_TO_CACHE);
+                try{
+                    await cache.addAll(URLS_TO_CACHE);
+                    console.log("Successfully addedAll to Caches");
+                }
+                catch(err){
+                    console.log("Error while addingAll to Caches : "+err);
+                }
             })
     );
     self.skipWaiting();
