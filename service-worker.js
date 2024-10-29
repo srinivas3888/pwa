@@ -44,7 +44,7 @@ self.addEventListener('push', (event)=>{
     let data = event.data ? event.data.json() : { title: 'Hello from Srinivas!', body: 'You have a new message.' };
     const options = {
         body: data.body,
-        icon: './fav.png', // Replace with your icon file path if available
+        icon: '/fav.png', // Replace with your icon file path if available
         // badge: './fav.png' // Replace with your badge file path if available
     };
 
