@@ -85,33 +85,56 @@ document.getElementById('deleteButton').addEventListener('click', async () => {
 });
 
 async function subscribeToNotifications() {
+    console.log("Registering Push...")
     const registration = await navigator.serviceWorker.ready;
+
     const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: 'BGSiY1tj28LV9bh8jGsvhX_-CUAGuhUqBkxf85ycG9VHmxPg_9nG9amcS7enT9rSnRFYERboAoLEhPZ3JNsn5mc' // Replace with your VAPID public key
+        applicationServerKey: urlBase64ToUint8Array('BGSiY1tj28LV9bh8jGsvhX_-CUAGuhUqBkxf85ycG9VHmxPg_9nG9amcS7enT9rSnRFYERboAoLEhPZ3JNsn5mc') // Replace with your VAPID public key
     });
+    console.log("Push Registered...")
 
-    await fetch('https://pushnotifications-ofer.onrender.com/subscribe', {
-        method: 'POST',
-        body: JSON.stringify(subscription),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-
-    console.log('User is subscribed to notifications.');
+    try {
+        const r = await fetch('/subscribe', {
+            method: 'POST',
+            body: JSON.stringify(subscription),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log('User is subscribed to notifications & Notification Sent...' + r);
+    }
+    catch (err) {
+        console.log("An error occurred while Sending Notification : " + err);
+    }
 }
 
-async function sendNotifications() {
-    const r = await fetch('https://pushnotifications-ofer.onrender.com/send-notification', {
-        method: 'POST',
-        body: JSON.stringify({}),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    console.log(r);
+//Method for public vapid key conversion...
+function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding)
+        .replace(/\-/g, '+')
+        .replace(/_/g, '/');
+
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
 }
+
+// async function sendNotifications() {
+//     const r = await fetch('/send-notification', {
+//         method: 'POST',
+//         body: JSON.stringify({}),
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     });
+//     console.log(r);
+// }
 
 function askNotificationPermission() {
     // Check if the browser supports notifications
@@ -132,7 +155,7 @@ function askNotificationPermission() {
     }
 
     // Request permission from the user
-    Notification.requestPermission().then(async(permission) => {
+    Notification.requestPermission().then(async (permission) => {
         if (permission === 'granted') {
             console.log('User granted permission for notifications.');
             // You can also subscribe the user to push notifications here
