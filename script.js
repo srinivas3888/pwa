@@ -1,13 +1,14 @@
 // import { addData, getAllData } from './indexeddb';
-
+let registration;
 // Register Service Worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./service-worker.js')
-        .then(registration => {
-            console.log('Service Worker registered with scope:', registration.scope);
+        .then(register => {
+            registration = register;
+            console.log('Service Worker registered with scope:', register.scope);
         })
         .catch(error => {
-            console.log('Service Worker registration failed:', error);
+            console.log('Service Worker registration failed & registration var is not set :  ', error);
         });
 }
 
@@ -86,7 +87,7 @@ document.getElementById('deleteButton').addEventListener('click', async () => {
 
 async function subscribeToNotifications() {
     console.log("Registering Push...")
-    const registration = await navigator.serviceWorker.ready;
+    // const registration = await navigator.serviceWorker.ready;
     const publicVapidKey = urlBase64ToUint8Array('BGSiY1tj28LV9bh8jGsvhX_-CUAGuhUqBkxf85ycG9VHmxPg_9nG9amcS7enT9rSnRFYERboAoLEhPZ3JNsn5mc');
     console.log("PublicKey converted to Uint8Array...")
 
