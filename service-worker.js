@@ -34,14 +34,16 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('push', (event)=>{
+    console.log("Push received...")
+    let data = event.data ? event.data.json() : { title: 'Hello from Srinivas!', body: 'You have a new message.' };
     const options = {
-        body: event.data ? event.data.text() : 'New Notification',
+        body: data.body,
         icon: './fav.png', // Replace with your icon file path if available
-        badge: './fav.png' // Replace with your badge file path if available
+        // badge: './fav.png' // Replace with your badge file path if available
     };
 
     event.waitUntil(
-        self.registration.showNotification('Push Notification', options)
+        self.registration.showNotification(data.title, options)
     );
 });
 
