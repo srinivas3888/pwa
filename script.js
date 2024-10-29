@@ -87,10 +87,12 @@ document.getElementById('deleteButton').addEventListener('click', async () => {
 async function subscribeToNotifications() {
     console.log("Registering Push...")
     const registration = await navigator.serviceWorker.ready;
+    const publicVapidKey = urlBase64ToUint8Array('BGSiY1tj28LV9bh8jGsvhX_-CUAGuhUqBkxf85ycG9VHmxPg_9nG9amcS7enT9rSnRFYERboAoLEhPZ3JNsn5mc');
+    console.log("PublicKey converted to Uint8Array...")
 
     const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array('BGSiY1tj28LV9bh8jGsvhX_-CUAGuhUqBkxf85ycG9VHmxPg_9nG9amcS7enT9rSnRFYERboAoLEhPZ3JNsn5mc') // Replace with your VAPID public key
+        applicationServerKey: publicVapidKey // Replace with your VAPID public key
     });
     console.log("Push Registered...")
 
