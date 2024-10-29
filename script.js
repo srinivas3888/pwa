@@ -85,6 +85,7 @@ document.getElementById('deleteButton').addEventListener('click', async () => {
 });
 
 async function subscribeToNotifications() {
+    askNotificationPermission();
     console.log("Registering Push...")
     // const registration = await navigator.serviceWorker.ready;
     const publicVapidKey = urlBase64ToUint8Array('BGSiY1tj28LV9bh8jGsvhX_-CUAGuhUqBkxf85ycG9VHmxPg_9nG9amcS7enT9rSnRFYERboAoLEhPZ3JNsn5mc');
