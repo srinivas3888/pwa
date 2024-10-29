@@ -105,7 +105,7 @@ async function subscribeToNotifications() {
     }
 
     try {
-        const r = await fetch('/subscribe', {
+        const r = await fetch('https://pushnotifications-ofer.onrender.com/subscribe', {
             method: 'POST',
             body: JSON.stringify(subscription),
             headers: {
