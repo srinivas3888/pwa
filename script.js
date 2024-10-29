@@ -1,14 +1,13 @@
 // import { addData, getAllData } from './indexeddb';
-let registration;
+
 // Register Service Worker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./service-worker.js')
         .then(register => {
-            registration = register;
             console.log('Service Worker registered with scope:', register.scope);
         })
         .catch(error => {
-            console.log('Service Worker registration failed & registration var is not set :  ', error);
+            console.log('Service Worker registration failed:', error);
         });
 }
 
@@ -91,11 +90,18 @@ async function subscribeToNotifications() {
     const publicVapidKey = urlBase64ToUint8Array('BGSiY1tj28LV9bh8jGsvhX_-CUAGuhUqBkxf85ycG9VHmxPg_9nG9amcS7enT9rSnRFYERboAoLEhPZ3JNsn5mc');
     console.log("PublicKey converted to Uint8Array...")
 
-    const subscription = await registration.pushManager.subscribe({
+    let subscription;
+    try{
+        let registration = await navigator.serviceWorker.ready;
+        subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: publicVapidKey // Replace with your VAPID public key
     });
-    console.log("Push Registered...")
+    console.log("Push Registered...");
+    }
+    catch(err){
+        console.log("Error while registering Push : "+err);
+    }
 
     try {
         const r = await fetch('/subscribe', {
